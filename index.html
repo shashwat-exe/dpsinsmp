@@ -198,12 +198,22 @@ body {
     gap:8px;
 }
 .player-tag{
-    padding:7px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Spacing between head and name */
+    padding:6px 12px 6px 8px; /* Left padded less to balance the icon circle */
     border-radius:999px;
     background:rgba(255,255,255,.06);
     border:1px solid rgba(255,255,255,.05);
     color:#e2e8f0;
     font-size:.9rem;
+}
+.player-head{
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    object-fit: contain;
+    display: block;
 }
 .footer{
     margin-top:24px;
@@ -293,14 +303,21 @@ async function updateStatus() {
                     .map(player => {
                         let displayName = "Player";
                         
-                        // Universal parser handling objects, strings, clean_names, or raw samples
                         if (typeof player === 'string') {
                             displayName = player;
                         } else if (player && typeof player === 'object') {
                             displayName = player.name_clean || player.name || player.uuid || "Player";
                         }
                         
-                        return `<div class="player-tag">${displayName}</div>`;
+                        // Generates a 3D isometric 20px player head using Minotar API dynamically
+                        const headUrl = `https://minotar.net/helm/${displayName}/20.png`;
+                        
+                        return `
+                            <div class="player-tag">
+                                <img src="${headUrl}" class="player-head" alt="${displayName}'s Head" onerror="this.src='https://minotar.net/helm/MHF_Steve/20.png'">
+                                ${displayName}
+                            </div>
+                        `;
                     })
                     .join("");
             } else {
