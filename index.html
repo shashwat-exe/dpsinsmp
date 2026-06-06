@@ -288,12 +288,19 @@ async function updateStatus() {
             
             const playerList = document.getElementById("playerlist");
             
-            // Fixed the undefined array property mapping check right here
             if(data.players && data.players.list && data.players.list.length > 0){
                 playerList.innerHTML = data.players.list
                     .map(player => {
-                        const name = player.name || "Anonymous";
-                        return `<div class="player-tag">${name}</div>`;
+                        let displayName = "Player";
+                        
+                        // Universal parser handling objects, strings, clean_names, or raw samples
+                        if (typeof player === 'string') {
+                            displayName = player;
+                        } else if (player && typeof player === 'object') {
+                            displayName = player.name_clean || player.name || player.uuid || "Player";
+                        }
+                        
+                        return `<div class="player-tag">${displayName}</div>`;
                     })
                     .join("");
             } else {
