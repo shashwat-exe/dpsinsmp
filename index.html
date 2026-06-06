@@ -13,6 +13,21 @@
     box-sizing:border-box;
     font-family:'Inter',sans-serif;
 }
+
+/* Premium Keyframe Animation Definition */
+@keyframes smoothReveal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
 body {
     min-height: 100vh;
     display: flex;
@@ -37,6 +52,9 @@ body {
     box-shadow:
     0 20px 60px rgba(0,0,0,.4),
     inset 0 1px rgba(255,255,255,.08);
+    
+    /* Smooth loading animation initialization */
+    animation: smoothReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 /* Flexbox adjusted to push status pill to the right */
 .header{
@@ -66,6 +84,7 @@ body {
     width:100%;
     height:100%;
     object-fit:contain;
+    border-radius: 16px; /* Keeps the avatar image rounded if fetched */
 }
 .server-name{
     font-size:1.5rem;
@@ -85,6 +104,8 @@ body {
     font-size:.9rem;
     font-weight:600;
     white-space:nowrap;
+    /* Soft blend pop-in when API registers status */
+    animation: smoothReveal 0.4s ease-out forwards;
 }
 .online{
     background:rgba(34,197,94,.15);
@@ -114,6 +135,7 @@ body {
     margin-top:6px;
     font-size:1.15rem;
     font-weight:700;
+    transition: all 0.3s ease; /* Fluid transition when text alters from '--' */
 }
 .ip-box{
     margin-top:20px;
@@ -139,6 +161,11 @@ body {
     font-weight:600;
     color:white;
     background:linear-gradient(135deg,#2563eb,#7c3aed);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+.copy-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.1);
 }
 .discord-btn{
     display:flex;
@@ -154,11 +181,12 @@ body {
     font-weight:700;
     font-size:0.95rem;
     box-shadow: 0 4px 15px rgba(88, 101, 242, 0.2);
-    transition: transform 0.2s ease, background 0.2s ease;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 .discord-btn:hover{
     transform: translateY(-2px);
     background:linear-gradient(135deg,#6A77F3,#5865F2);
+    box-shadow: 0 6px 20px rgba(88, 101, 242, 0.35);
 }
 .player-card{
     margin-top:14px;
@@ -190,7 +218,7 @@ body {
 <div class="header">
     <div class="header-left">
         <div class="server-icon" id="icon">
-            ⛏️
+            挖
         </div>
         <div>
             <div class="server-name">DPSIN SMP</div>
@@ -222,7 +250,7 @@ body {
 </div>
 
 <a href="https://discord.gg/ppCaVm5Mtb" target="_blank" class="discord-btn">
-    Click to Join the SMP Discord!
+    💬 Click to Join the SMP Discord!
 </a>
 
 <div class="footer">
@@ -233,7 +261,7 @@ body {
        color:#60a5fa;
        text-decoration:none;
        font-weight:700;">
-        shashwat
+         shashwat
     </a>
 </div>
 </div>
