@@ -218,7 +218,7 @@ body {
 <div class="header">
     <div class="header-left">
         <div class="server-icon" id="icon">
-            挖
+            ⛏️
         </div>
         <div>
             <div class="server-name">DPSIN SMP</div>
@@ -261,7 +261,7 @@ body {
        color:#60a5fa;
        text-decoration:none;
        font-weight:700;">
-         shashwat
+          shashwat
     </a>
 </div>
 </div>
@@ -287,9 +287,14 @@ async function updateStatus() {
             }
             
             const playerList = document.getElementById("playerlist");
+            
+            // Fixed the undefined array property mapping check right here
             if(data.players && data.players.list && data.players.list.length > 0){
                 playerList.innerHTML = data.players.list
-                    .map(player => `<div class="player-tag">${player.name}</div>`)
+                    .map(player => {
+                        const name = player.name || "Anonymous";
+                        return `<div class="player-tag">${name}</div>`;
+                    })
                     .join("");
             } else {
                 playerList.innerHTML = `<div style="color:#64748b">Player list hidden</div>`;            
