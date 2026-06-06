@@ -130,6 +130,26 @@ body{
     color:white;
     background:linear-gradient(135deg,#2563eb,#7c3aed);
 }
+.discord-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin-top:14px;
+    padding:14px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#5865F2,#4752C4);
+    color:white;
+    text-decoration:none;
+    font-weight:700;
+    font-size:0.95rem;
+    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.2);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+.discord-btn:hover{
+    transform: translateY(-2px);
+    background:linear-gradient(135deg,#6A77F3,#5865F2);
+}
 .player-card{
     margin-top:14px;
 }
@@ -187,6 +207,11 @@ body{
     <div class="ip">141.148.217.211:25502</div>
     <button class="copy-btn" onclick="copyIP()">Copy</button>
 </div>
+
+<a href="https://discord.gg/ppCaVm5Mtb" target="_blank" class="discord-btn">
+    💬 Join the Discord Server
+</a>
+
 <div class="footer">
     DPSIN SMP • Auto updates every 30 seconds<br><br>
 
