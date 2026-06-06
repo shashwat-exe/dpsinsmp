@@ -40,11 +40,21 @@ radial-gradient(circle at 50% 50%, #06b6d4 0%, transparent 25%),
 .header{
     display:flex;
     align-items:center;
+    justify-content: space-between;
+    gap:16px;
+}
+.header-left{
+    display:flex;
+    align-items:center;
     gap:16px;
 }
 .server-icon{
     width:72px;
     height:72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
     background:none;
     border:none;
     box-shadow:none;
@@ -64,7 +74,6 @@ radial-gradient(circle at 50% 50%, #06b6d4 0%, transparent 25%),
     margin-top:4px;
 }
 .status-pill{
-    margin-top:22px;
     display:inline-flex;
     align-items:center;
     gap:8px;
@@ -80,6 +89,18 @@ radial-gradient(circle at 50% 50%, #06b6d4 0%, transparent 25%),
 .offline{
     background:rgba(239,68,68,.15);
     color:#f87171;
+}
+.hero-banner{
+    margin-top:18px;
+    padding:14px;
+    border-radius:18px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.05);
+}
+.hero-motd{
+    color:#cbd5e1;
+    font-size:.95rem;
+    text-align: center;
 }
 .stats{
     margin-top:24px;
@@ -110,10 +131,13 @@ radial-gradient(circle at 50% 50%, #06b6d4 0%, transparent 25%),
 .ip{
     flex:1;
     background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.05);
     border-radius:14px;
     padding:14px;
     color:#cbd5e1;
     overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .copy-btn{
     border:none;
@@ -141,26 +165,6 @@ radial-gradient(circle at 50% 50%, #06b6d4 0%, transparent 25%),
     color:#e2e8f0;
     font-size:.9rem;
 }
-.footer{
-    margin-top:18px;
-    color:#64748b;
-    font-size:.8rem;
-    text-align:center;
-}
-    .hero-banner{
-    margin-top:18px;
-    padding:14px;
-    border-radius:18px;
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.05);
-}
-
-.hero-motd{
-    color:#cbd5e1;
-    margin-top:6px;
-    font-size:.95rem;
-}
-
 .discord-btn{
     display:block;
     text-align:center;
@@ -173,24 +177,20 @@ radial-gradient(circle at 50% 50%, #06b6d4 0%, transparent 25%),
     font-weight:700;
     transition:.25s;
 }
-
 .discord-btn:hover{
     transform:translateY(-2px);
 }
-
 .section-title{
     margin-top:20px;
     margin-bottom:12px;
     font-size:1rem;
     font-weight:700;
 }
-
 .gallery{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:10px;
 }
-
 .gallery img{
     width:100%;
     height:90px;
@@ -198,129 +198,118 @@ radial-gradient(circle at 50% 50%, #06b6d4 0%, transparent 25%),
     border-radius:14px;
     transition:.3s;
 }
-
 .gallery img:hover{
     transform:scale(1.05);
+}
+.footer{
+    margin-top:24px;
+    color:#64748b;
+    font-size:.8rem;
+    text-align:center;
 }
 </style>
 </head>
 <body>
 <div class="card">
-<div class="header">
-    <div class="server-icon" id="icon">
-        ⛏️
+    <div class="header">
+        <div class="header-left">
+            <div class="server-icon" id="icon">⛏️</div>
+            <div>
+                <div class="server-name">DPSIN SMP</div>
+                <div class="subtitle">Survival SMP • Java Edition</div>
+            </div>
+        </div>
+        <div id="status"></div>
     </div>
-    <div>
-        <div class="server-name">DPSIN SMP</div>
-      <div class="subtitle">
-    Survival SMP • Java Edition
-</div>
-</div>
-<div id="status"></div>
-<div class="stats">
-    <div class="stat">
-        <div class="label">Players</div>
-        <div class="value" id="players">--</div>
-    </div>
-    <div class="stat">
-        <div class="label">Version</div>
-        <div class="value" id="version">--</div>
-    </div>
-</div>
-<div class="stat player-card">
-    <div class="label">Online Players</div>
-    <div id="playerlist" class="player-tags">
-        Loading...
-    </div>
-</div>
-<div class="ip-box">
-    <div class="ip">141.148.217.211:25502</div>
-    <button class="copy-btn" onclick="copyIP()">Copy</button>
-    <a href="https://discord.gg/ppCaVm5Mtb"
-   target="_blank"
-   class="discord-btn">
-    DPSIN SMP Discord
-</a>
 
-<div class="section-title">
-    🏰 Cool Builds
-</div>
+    <div class="hero-banner">
+        <div class="hero-motd">Loading server message...</div>
+    </div>
 
-<div class="gallery">
-    <img src="spawn.png" alt="Spawn">
-    <img src="build1.png" alt="Build 1">
-    <img src="build2.png" alt="Build 2">
-</div>
-</div>
-<div class="footer">
-    DPSIN SMP • Auto updates every 30 seconds<br><br>
+    <div class="stats">
+        <div class="stat">
+            <div class="label">Players</div>
+            <div class="value" id="players">--</div>
+        </div>
+        <div class="stat">
+            <div class="label">Version</div>
+            <div class="value" id="version">--</div>
+        </div>
+    </div>
 
-    Owned and Managed by
-    <a href="https://discord.com/users/560415089686216704"
-       target="_blank"
-       style="
-       color:#60a5fa;
-       text-decoration:none;
-       font-weight:700;">
-       shashwat
+    <div class="stat player-card">
+        <div class="label">Online Players</div>
+        <div id="playerlist" class="player-tags">
+            Loading...
+        </div>
+    </div>
+
+    <div class="ip-box">
+        <div class="ip">141.148.217.211:25502</div>
+        <button class="copy-btn" onclick="copyIP()">Copy</button>
+    </div>
+
+    <a href="https://discord.gg/ppCaVm5Mtb" target="_blank" class="discord-btn">
+        DPSIN SMP Discord
     </a>
+
+    <div class="section-title">🏰 Cool Builds</div>
+
+    <div class="gallery">
+        <img src="spawn.png" alt="Spawn">
+        <img src="build1.png" alt="Build 1">
+        <img src="build2.png" alt="Build 2">
+    </div>
+
+    <div class="footer">
+        DPSIN SMP • Auto updates every 30 seconds<br><br>
+        Owned and Managed by
+        <a href="https://discord.com/users/560415089686216704" target="_blank" style="color:#60a5fa; text-decoration:none; font-weight:700;">
+            shashwat
+        </a>
+    </div>
 </div>
-</div>
+
 <script>
 const SERVER = "141.148.217.211:25502";
+
 async function updateStatus() {
     try {
-        const res = await fetch(
-            `https://api.mcstatus.io/v2/status/java/${SERVER}`
-        );
+        const res = await fetch(`https://api.mcstatus.io/v2/status/java/${SERVER}`);
         const data = await res.json();
+        
         if(data.online){
             document.getElementById("status").innerHTML = `
                 <div class="status-pill online">
                     🟢 Online
                 </div>
             `;
-            document.getElementById("players").textContent =
-                `${data.players.online}/${data.players.max}`;
-            document.getElementById("version").textContent =
-                data.version.name_clean || "Unknown";
+            document.getElementById("players").textContent = `${data.players.online}/${data.players.max}`;
+            document.getElementById("version").textContent = data.version.name_clean || "Unknown";
+            
             if(data.motd && data.motd.clean){
-    document.querySelector(".hero-motd").textContent =
-        data.motd.clean;
-}
-            if(data.icon){
-                document.getElementById("icon").innerHTML =
-                `<img src="${data.icon}" alt="Server Icon">`;
+                document.querySelector(".hero-motd").textContent = data.motd.clean;
+            } else {
+                document.querySelector(".hero-motd").textContent = "A Minecraft Server";
             }
+
+            if(data.icon){
+                document.getElementById("icon").innerHTML = `<img src="${data.icon}" alt="Server Icon">`;
+            }
+            
             const playerList = document.getElementById("playerlist");
-            if(
-                data.players &&
-                data.players.list &&
-                data.players.list.length > 0
-            ){
-                playerList.innerHTML =
-                    data.players.list
-                    .map(player =>
-                        `<div class="player-tag">${player}</div>`
-                    )
+            if(data.players && data.players.list && data.players.list.length > 0){
+                playerList.innerHTML = data.players.list
+                    .map(player => `<div class="player-tag">${player.name}</div>`)
                     .join("");
-            }else{
-                playerList.innerHTML =
-                    `<div style="color:#64748b">
-                        Player list hidden
-                    </div>`;
+            } else {
+                playerList.innerHTML = `<div style="color:#64748b">No online players / Hidden</div>`;
             }
         } else {
-            document.getElementById("status").innerHTML = `
-                <div class="status-pill offline">
-                    🔴 Offline
-                </div>
-            `;
-            document.getElementById("players").textContent = "--";
-            document.getElementById("version").textContent = "--";
-            document.getElementById("playerlist").innerHTML = "--";
+            setOffline();
         }
     } catch(err){
+        console.error(err);
         document.getElementById("status").innerHTML = `
             <div class="status-pill offline">
                 ⚠️ Connection Error
@@ -329,8 +318,22 @@ async function updateStatus() {
         document.getElementById("players").textContent = "--";
         document.getElementById("version").textContent = "--";
         document.getElementById("playerlist").innerHTML = "--";
+        document.querySelector(".hero-motd").textContent = "Server is unreachable";
     }
 }
+
+function setOffline() {
+    document.getElementById("status").innerHTML = `
+        <div class="status-pill offline">
+            🔴 Offline
+        </div>
+    `;
+    document.getElementById("players").textContent = "--";
+    document.getElementById("version").textContent = "--";
+    document.getElementById("playerlist").innerHTML = "--";
+    document.querySelector(".hero-motd").textContent = "Server Offline";
+}
+
 function copyIP(){
     navigator.clipboard.writeText(SERVER);
     const btn = document.querySelector(".copy-btn");
@@ -339,8 +342,9 @@ function copyIP(){
         btn.textContent = "Copy";
     }, 1500);
 }
+
 updateStatus();
 setInterval(updateStatus, 30000);
 </script>
 </body>
-</html
+</html>
