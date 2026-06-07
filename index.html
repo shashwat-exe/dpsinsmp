@@ -40,7 +40,6 @@ body {
         url('background.jpg') no-repeat center center fixed;
     background-size: cover;
     color: white;
-    overflow-x: hidden; /* Prevents horizontal scrollbar when skin is hidden */
 }
 
 .card {
@@ -247,46 +246,9 @@ body {
     font-size: 1rem; 
     text-align: center;
 }
-
-/* --- PEEKING CHARACTER STYLES --- */
-#peeking-character {
-    position: fixed;
-    top: 50%;
-    right: -300px; /* Start far off-screen */
-    transform: translateY(-50%);
-    z-index: 5; /* Places it behind the card if they overlap */
-    pointer-events: none; /* So it doesn't block clicks */
-    opacity: 0;
-    perspective: 1000px; /* <--- REQUIRED FOR THE 3D TILT EFFECT */
-}
-
-#peeking-character img {
-    height: 380px; 
-    width: auto;
-    filter: drop-shadow(-10px 10px 20px rgba(0,0,0,0.5)); 
-}
-
-.peek-visible {
-    animation: charPeekIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes charPeekIn {
-    0% {
-        right: -300px;
-        opacity: 0;
-    }
-    100% {
-        right: -60px; 
-        opacity: 1;
-    }
-}
     </style>
 </head>
 <body>
-
-<div id="peeking-character">
-    <img src="peek_skin.png" alt="Server Owner">
-</div>
 
 <div class="card">
     <div class="header">
@@ -434,43 +396,6 @@ document.addEventListener('click', () => {
     clickSound.play().catch(error => {
         console.log("Browser waiting for user interaction to play audio.");
     });
-});
-
-// --- PEEKING CHARACTER ANIMATION TRIGGER ---
-window.addEventListener('load', () => {
-    // Waits exactly 1000ms (1 second) after page load
-    setTimeout(() => {
-        const peeker = document.getElementById('peeking-character');
-        if(peeker) peeker.classList.add('peek-visible');
-    }, 1000);
-});
-
-// --- 3D MOUSE TRACKING FOR THE SKELETON SKIN ---
-const peekingSkin = document.querySelector('#peeking-character img');
-
-document.addEventListener('mousemove', (e) => {
-    // The number '30' controls sensitivity. Lower = more extreme tilt.
-    let xAxis = (window.innerWidth / 2 - e.pageX) / 30; 
-    let yAxis = (window.innerHeight / 2 - e.pageY) / 30;
-    
-    if (peekingSkin) {
-        peekingSkin.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-    }
-});
-
-// Snap back when the mouse leaves the window
-document.addEventListener('mouseleave', () => {
-    if (peekingSkin) {
-        peekingSkin.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        peekingSkin.style.transition = `transform 0.5s ease`; 
-    }
-});
-
-// Remove transition delay while moving so it tracks instantly
-document.addEventListener('mouseenter', () => {
-    if (peekingSkin) {
-        peekingSkin.style.transition = `none`; 
-    }
 });
 </script>
 </body>
