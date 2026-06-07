@@ -257,6 +257,7 @@ body {
     z-index: 5; /* Places it behind the card if they overlap */
     pointer-events: none; /* So it doesn't block clicks */
     opacity: 0;
+    perspective: 1000px; /* <--- REQUIRED FOR THE 3D TILT EFFECT */
 }
 
 #peeking-character img {
@@ -442,6 +443,34 @@ window.addEventListener('load', () => {
         const peeker = document.getElementById('peeking-character');
         if(peeker) peeker.classList.add('peek-visible');
     }, 1000);
+});
+
+// --- 3D MOUSE TRACKING FOR THE SKELETON SKIN ---
+const peekingSkin = document.querySelector('#peeking-character img');
+
+document.addEventListener('mousemove', (e) => {
+    // The number '30' controls sensitivity. Lower = more extreme tilt.
+    let xAxis = (window.innerWidth / 2 - e.pageX) / 30; 
+    let yAxis = (window.innerHeight / 2 - e.pageY) / 30;
+    
+    if (peekingSkin) {
+        peekingSkin.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    }
+});
+
+// Snap back when the mouse leaves the window
+document.addEventListener('mouseleave', () => {
+    if (peekingSkin) {
+        peekingSkin.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        peekingSkin.style.transition = `transform 0.5s ease`; 
+    }
+});
+
+// Remove transition delay while moving so it tracks instantly
+document.addEventListener('mouseenter', () => {
+    if (peekingSkin) {
+        peekingSkin.style.transition = `none`; 
+    }
 });
 </script>
 </body>
