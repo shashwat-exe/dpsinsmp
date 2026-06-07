@@ -7,11 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="server-icon.png">
     <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Inter',sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
 /* Premium Keyframe Animation Definition */
@@ -40,338 +40,277 @@ body {
         url('background.jpg') no-repeat center center fixed;
     background-size: cover;
     color: white;
+    overflow-x: hidden; /* Prevents horizontal scrollbar when skin is hidden */
 }
-.card{
-    width:100%;
-    max-width:500px;
-    backdrop-filter:blur(20px);
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:28px;
-    padding:30px;
+
+.card {
+    width: 100%;
+    max-width: 500px;
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 28px;
+    padding: 30px;
     box-shadow:
     0 20px 60px rgba(0,0,0,.4),
     inset 0 1px rgba(255,255,255,.08);
     
     /* Smooth loading animation initialization */
     animation: smoothReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    position: relative;
+    z-index: 10;
 }
-/* Flexbox adjusted to push status pill to the right */
-.header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
 }
-.header-left{
-    display:flex;
-    align-items:center;
-    gap:16px;
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
-.server-icon{
-    width:72px;
-    height:72px;
-    background:none;
-    border:none;
-    box-shadow:none;
-    overflow:visible;
+
+.server-icon {
+    width: 72px;
+    height: 72px;
+    background: none;
+    border: none;
+    box-shadow: none;
+    overflow: visible;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2.5rem;
 }
-.server-icon img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    border-radius: 16px; /* Keeps the avatar image rounded if fetched */
+
+.server-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 16px;
 }
-.server-name{
-    font-size:1.5rem;
-    font-weight:800;
+
+.server-name {
+    font-size: 1.5rem;
+    font-weight: 800;
 }
-.subtitle{
-    color:#94a3b8;
-    margin-top:4px;
+
+.subtitle {
+    color: #94a3b8;
+    margin-top: 4px;
 }
-.status-pill{
-    margin-top:0px; /* Removed margin so it aligns nicely in the header */
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:10px 16px;
-    border-radius:999px;
-    font-size:.9rem;
-    font-weight:600;
-    white-space:nowrap;
-    /* Soft blend pop-in when API registers status */
+
+.status-pill {
+    margin-top: 0px; 
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: .9rem;
+    font-weight: 600;
+    white-space: nowrap;
     animation: smoothReveal 0.4s ease-out forwards;
 }
-.online{
-    background:rgba(34,197,94,.15);
-    color:#4ade80;
+
+.online {
+    background: rgba(34,197,94,.15);
+    color: #4ade80;
 }
-.offline{
-    background:rgba(239,68,68,.15);
-    color:#f87171;
+
+.offline {
+    background: rgba(239,68,68,.15);
+    color: #f87171;
 }
-.stats{
-    margin-top:24px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
+
+.stats {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
 }
-.stat{
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.05);
-    padding:16px;
-    border-radius:18px;
+
+.stat {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.05);
+    padding: 16px;
+    border-radius: 18px;
 }
-.label{
-    color:#94a3b8;
-    font-size:.85rem;
+
+.label {
+    color: #94a3b8;
+    font-size: .85rem;
 }
-.value{
-    margin-top:6px;
-    font-size:1.15rem;
-    font-weight:700;
-    transition: all 0.3s ease; /* Fluid transition when text alters from '--' */
+
+.value {
+    margin-top: 6px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    transition: all 0.3s ease; 
 }
-.ip-box{
-    margin-top:20px;
-    display:flex;
-    gap:10px;
+
+.ip-box {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
 }
-.ip{
-    flex:1;
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.05);
-    border-radius:14px;
-    padding:14px;
-    color:#cbd5e1;
-    overflow:hidden;
+
+.ip {
+    flex: 1;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.05);
+    border-radius: 14px;
+    padding: 14px;
+    color: #cbd5e1;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.copy-btn{
-    border:none;
-    border-radius:14px;
-    padding:14px 18px;
-    cursor:pointer;
-    font-weight:600;
-    color:white;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+.copy-btn {
+    border: none;
+    border-radius: 14px;
+    padding: 14px 18px;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg,#2563eb,#7c3aed);
     transition: transform 0.2s ease, filter 0.2s ease;
 }
+
 .copy-btn:hover {
     transform: translateY(-1px);
     filter: brightness(1.1);
 }
-.discord-btn{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    margin-top:14px;
-    padding:14px;
-    border-radius:16px;
-    background:linear-gradient(135deg,#5865F2,#4752C4);
-    color:white;
-    text-decoration:none;
-    font-weight:700;
-    font-size:0.95rem;
+
+.discord-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 16px;
+    background: linear-gradient(135deg,#5865F2,#4752C4);
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
     box-shadow: 0 4px 15px rgba(88, 101, 242, 0.2);
     transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
-.discord-btn:hover{
+
+.discord-btn:hover {
     transform: translateY(-2px);
-    background:linear-gradient(135deg,#6A77F3,#5865F2);
+    background: linear-gradient(135deg,#6A77F3,#5865F2);
     box-shadow: 0 6px 20px rgba(88, 101, 242, 0.35);
 }
-.player-card{
-    margin-top:14px;
+
+.player-card {
+    margin-top: 14px;
 }
-.player-tags{
-    margin-top:10px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
+
+.player-tags {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
-.player-tag{
+
+.player-tag {
     display: inline-flex;
     align-items: center;
-    gap: 8px; /* Spacing between head and name */
-    padding:6px 12px 6px 8px; /* Left padded less to balance the icon circle */
-    border-radius:999px;
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.05);
-    color:#e2e8f0;
-    font-size:.9rem;
+    gap: 8px; 
+    padding: 6px 12px 6px 8px; 
+    border-radius: 999px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.05);
+    color: #e2e8f0;
+    font-size: .9rem;
 }
-.player-head{
+
+.player-head {
     width: 20px;
     height: 20px;
     border-radius: 4px;
     object-fit: contain;
     display: block;
 }
-.footer{
-    margin-top:24px;
-    color:#64748b;
-    font-size: 1rem; /* Increased from .8rem */
-    text-align:center;
+
+.footer {
+    margin-top: 24px;
+    color: #64748b;
+    font-size: 1rem; 
+    text-align: center;
 }
-</style>
-</head>
-<body>
-<div class="card">
-<div class="header">
-    <div class="header-left">
-        <div class="server-icon" id="icon">
-            ⛏️
-        </div>
-        <div>
-            <div class="server-name">DPSIN SMP</div>
-            <div class="subtitle">Minecraft Java Edition</div>
-        </div>
-    </div>
-    <div id="status"></div>
-</div>
 
-<div class="stats">
-    <div class="stat">
-        <div class="label">Players</div>
-        <div class="value" id="players">--</div>
-    </div>
-    <div class="stat">
-        <div class="label">Version</div>
-        <div class="value" id="version">--</div>
-    </div>
-</div>
-<div class="stat player-card">
-    <div class="label">Online Players</div>
-    <div id="playerlist" class="player-tags">
-        Loading...
-    </div>
-</div>
-<div class="ip-box">
-    <div class="ip">141.148.217.211:25502</div>
-    <button class="copy-btn" onclick="copyIP()">Copy</button>
-</div>
+/* --- PEEKING CHARACTER STYLES --- */
+#peeking-character {
+    position: fixed;
+    top: 50%;
+    right: -300px; /* Start far off-screen */
+    transform: translateY(-50%);
+    z-index: 5; /* Places it behind the card if they overlap, but in front of background */
+    pointer-events: none; /* So it doesn't block clicks */
+    opacity: 0;
+}
 
-<a href="https://discord.gg/ppCaVm5Mtb" target="_blank" class="discord-btn">
-    Click to Join the SMP Discord!
-</a>
+#peeking-character img {
+    height: 380px; /* Adjust if it's too big/small */
+    width: auto;
+    filter: drop-shadow(-10px 10px 20px rgba(0,0,0,0.5)); /* Adds a realistic shadow */
+}
 
-<div class="footer">
-    Owned and Managed by
-    <a href="https://discord.com/users/560415089686216704"
-       target="_blank"
-       style="
-       color:#60a5fa;
-       text-decoration:none;
-       font-weight:700;">
-         shashwat
-    </a>
-</div>
-</div>
-<script>
-const SERVER = "141.148.217.211:25502";
+.peek-visible {
+    animation: charPeekIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 
-async function updateStatus() {
-    try {
-        const res = await fetch(`https://api.mcstatus.io/v2/status/java/${SERVER}`);
-        const data = await res.json();
-        
-        if(data.online){
-            document.getElementById("status").innerHTML = `
-                <div class="status-pill online">
-                    🟢 Online
-                </div>
-            `;            
-            document.getElementById("players").textContent = `${data.players.online}/${data.players.max}`;
-            document.getElementById("version").textContent = data.version.name_clean || "Unknown";
-            
-            if(data.icon){
-                document.getElementById("icon").innerHTML = `<img src="${data.icon}" alt="Server Icon">`;
-            }
-            
-            const playerList = document.getElementById("playerlist");
-            
-            if(data.players && data.players.list && data.players.list.length > 0){
-                playerList.innerHTML = data.players.list
-                    .map(player => {
-                        let displayName = "Player";
-                        
-                        if (typeof player === 'string') {
-                            displayName = player;
-                        } else if (player && typeof player === 'object') {
-                            displayName = player.name_clean || player.name || player.uuid || "Player";
-                        }
-                        
-                        // Generates a 3D isometric 20px player head using Minotar API dynamically
-                        const headUrl = `https://minotar.net/helm/${displayName}/20.png`;
-                        
-                        return `
-                            <div class="player-tag">
-                                <img src="${headUrl}" class="player-head" alt="${displayName}'s Head" onerror="this.src='https://minotar.net/helm/MHF_Steve/20.png'">
-                                ${displayName}
-                            </div>
-                        `;
-                    })
-                    .join("");
-            } else {
-                playerList.innerHTML = `<div style="color:#64748b">Player list hidden</div>`;            
-            }
-        } else {
-            document.getElementById("status").innerHTML = `
-                <div class="status-pill offline">
-                    🔴 Offline
-                </div>
-            `;            
-            document.getElementById("players").textContent = "--";
-            document.getElementById("version").textContent = "--";
-            document.getElementById("playerlist").innerHTML = "--";
-        }
-    } catch(err){
-        console.error(err);
-        document.getElementById("status").innerHTML = `
-            <div class="status-pill offline">
-                ⚠️ Connection Error
-            </div>
-        `;        
-        document.getElementById("players").textContent = "--";
-        document.getElementById("version").textContent = "--";
-        document.getElementById("playerlist").innerHTML = "--";
+@keyframes charPeekIn {
+    0% {
+        right: -300px;
+        opacity: 0;
+    }
+    100% {
+        right: -60px; /* Hides the straight cut-off edge of the arm off-screen */
+        opacity: 1;
     }
 }
+    </style>
+</head>
+<body>
 
-function copyIP(){
-    navigator.clipboard.writeText(SERVER);
-    const btn = document.querySelector(".copy-btn");
-    btn.textContent = "Copied!";
-    setTimeout(() => {
-        btn.textContent = "Copy";
-    }, 1500);
-}
+<div id="peeking-character">
+    <img src="peek_skin.png" alt="Server Owner">
+</div>
 
-updateStatus();
-setInterval(updateStatus, 30000);
-    // Load your click sound file (make sure 'click.mp3' matches your file name)
-const clickSound = new Audio('click.mp3'); 
-clickSound.volume = 0.5; // Adjust volume between 0.0 and 1.0
+<div class="card">
+    <div class="header">
+        <div class="header-left">
+            <div class="server-icon" id="icon">
+                ⛏️
+            </div>
+            <div>
+                <div class="server-name">DPSIN SMP</div>
+                <div class="subtitle">Minecraft Java Edition</div>
+            </div>
+        </div>
+        <div id="status"></div>
+    </div>
 
-// Listen for clicks on the entire webpage (captures buttons, text, and background)
-document.addEventListener('click', () => {
-    // Reset audio to the start so rapid clicks don't skip
-    clickSound.currentTime = 0; 
+    <div class="stats">
+        <div class="stat">
+            <div class="label">Players</div>
+            <div class="value" id="players">--</div>
+        </div>
+        <div class="stat">
+            <div class="label">Version</div>
+            <div class="value" id="version">--</div>
+        </div>
+    </div>
     
-    // Play the sound
-    clickSound.play().catch(error => {
-        // This catches errors if the browser blocks audio before the user's first interaction
-        console.log("Browser waiting for user interaction to play audio.");
-    });
-});
-</script>
-</body>
-</html>
+    <div class="stat player-card">
+        <div class="label">Online Players</div>
