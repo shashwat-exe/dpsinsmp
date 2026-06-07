@@ -254,15 +254,15 @@ body {
     top: 50%;
     right: -300px; /* Start far off-screen */
     transform: translateY(-50%);
-    z-index: 5; /* Places it behind the card if they overlap, but in front of background */
+    z-index: 5; /* Places it behind the card if they overlap */
     pointer-events: none; /* So it doesn't block clicks */
     opacity: 0;
 }
 
 #peeking-character img {
-    height: 380px; /* Adjust if it's too big/small */
+    height: 380px; 
     width: auto;
-    filter: drop-shadow(-10px 10px 20px rgba(0,0,0,0.5)); /* Adds a realistic shadow */
+    filter: drop-shadow(-10px 10px 20px rgba(0,0,0,0.5)); 
 }
 
 .peek-visible {
@@ -275,7 +275,7 @@ body {
         opacity: 0;
     }
     100% {
-        right: -60px; /* Hides the straight cut-off edge of the arm off-screen */
+        right: -60px; 
         opacity: 1;
     }
 }
@@ -314,3 +314,135 @@ body {
     
     <div class="stat player-card">
         <div class="label">Online Players</div>
+        <div id="playerlist" class="player-tags">
+            Loading...
+        </div>
+    </div>
+    
+    <div class="ip-box">
+        <div class="ip">141.148.217.211:25502</div>
+        <button class="copy-btn" onclick="copyIP()">Copy</button>
+    </div>
+
+    <a href="https://discord.gg/ppCaVm5Mtb" target="_blank" class="discord-btn">
+        Click to Join the SMP Discord!
+    </a>
+
+    <div class="footer">
+        Owned and Managed by
+        <a href="https://discord.com/users/560415089686216704"
+           target="_blank"
+           style="
+           color:#60a5fa;
+           text-decoration:none;
+           font-weight:700;">
+             shashwat
+        </a>
+    </div>
+</div>
+
+<script>
+const SERVER = "141.148.217.211:25502";
+
+async function updateStatus() {
+    try {
+        const res = await fetch(`https://api.mcstatus.io/v2/status/java/${SERVER}`);
+        const data = await res.json();
+        
+        if(data.online){
+            document.getElementById("status").innerHTML = `
+                <div class="status-pill online">
+                    🟢 Online
+                </div>
+            `;            
+            document.getElementById("players").textContent = `${data.players.online}/${data.players.max}`;
+            document.getElementById("version").textContent = data.version.name_clean || "Unknown";
+            
+            if(data.icon){
+                document.getElementById("icon").innerHTML = `<img src="${data.icon}" alt="Server Icon">`;
+            }
+            
+            const playerList = document.getElementById("playerlist");
+            
+            if(data.players && data.players.list && data.players.list.length > 0){
+                playerList.innerHTML = data.players.list
+                    .map(player => {
+                        let displayName = "Player";
+                        
+                        if (typeof player === 'string') {
+                            displayName = player;
+                        } else if (player && typeof player === 'object') {
+                            displayName = player.name_clean || player.name || player.uuid || "Player";
+                        }
+                        
+                        // Generates a 3D isometric 20px player head using Minotar API dynamically
+                        const headUrl = `https://minotar.net/helm/${displayName}/20.png`;
+                        
+                        return `
+                            <div class="player-tag">
+                                <img src="${headUrl}" class="player-head" alt="${displayName}'s Head" onerror="this.src='https://minotar.net/helm/MHF_Steve/20.png'">
+                                ${displayName}
+                            </div>
+                        `;
+                    })
+                    .join("");
+            } else {
+                playerList.innerHTML = `<div style="color:#64748b">Player list hidden</div>`;            
+            }
+        } else {
+            document.getElementById("status").innerHTML = `
+                <div class="status-pill offline">
+                    🔴 Offline
+                </div>
+            `;            
+            document.getElementById("players").textContent = "--";
+            document.getElementById("version").textContent = "--";
+            document.getElementById("playerlist").innerHTML = "--";
+        }
+    } catch(err){
+        console.error(err);
+        document.getElementById("status").innerHTML = `
+            <div class="status-pill offline">
+                ⚠️ Connection Error
+            </div>
+        `;        
+        document.getElementById("players").textContent = "--";
+        document.getElementById("version").textContent = "--";
+        document.getElementById("playerlist").innerHTML = "--";
+    }
+}
+
+function copyIP(){
+    navigator.clipboard.writeText(SERVER);
+    const btn = document.querySelector(".copy-btn");
+    btn.textContent = "Copied!";
+    setTimeout(() => {
+        btn.textContent = "Copy";
+    }, 1500);
+}
+
+updateStatus();
+setInterval(updateStatus, 30000);
+
+// --- GLOBAL CLICK SOUND ---
+const clickSound = new Audio('click.mp3'); 
+clickSound.volume = 0.5; // Adjust volume between 0.0 and 1.0
+
+document.addEventListener('click', () => {
+    clickSound.currentTime = 0; 
+    clickSound.play().catch(error => {
+        console.log("Browser waiting for user interaction to play audio.");
+    });
+});
+
+// --- PEEKING CHARACTER ANIMATION TRIGGER ---
+window.addEventListener('load', () => {
+    // Waits exactly 1000ms (1 second) after page load
+    setTimeout(() => {
+        const peeker = document.getElementById('peeking-character');
+        if(peeker) peeker.classList.add('peek-visible');
+    }, 1000);
+});
+</script>
+</body>
+</html>
