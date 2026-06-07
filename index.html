@@ -357,6 +357,21 @@ function copyIP(){
 
 updateStatus();
 setInterval(updateStatus, 30000);
+    // Load your click sound file (make sure 'click.mp3' matches your file name)
+const clickSound = new Audio('click.mp3'); 
+clickSound.volume = 0.5; // Adjust volume between 0.0 and 1.0
+
+// Listen for clicks on the entire webpage (captures buttons, text, and background)
+document.addEventListener('click', () => {
+    // Reset audio to the start so rapid clicks don't skip
+    clickSound.currentTime = 0; 
+    
+    // Play the sound
+    clickSound.play().catch(error => {
+        // This catches errors if the browser blocks audio before the user's first interaction
+        console.log("Browser waiting for user interaction to play audio.");
+    });
+});
 </script>
 </body>
 </html>
